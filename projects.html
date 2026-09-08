@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — NEVACO BUILD</title>
+<meta name="description" content="Before-and-after renovation projects from NEVACO BUILD across the Greater Toronto Area.">
+<link rel="icon" href="assets/nevaco-logo-dark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site">
+  <div class="wrap nav-row">
+    <a class="brand reveal hero-enter nav-piece" href="index.html" style="transition-delay:0ms">
+      <img src="assets/nevaco-logo-dark.png" alt="NEVACO BUILD">
+    </a>
+    <nav class="primary reveal hero-enter nav-piece" id="primaryNav" style="transition-delay:110ms">
+      <a href="services.html">Services</a>
+      <a href="projects.html" aria-current="page">Projects</a>
+      <a href="about.html">About</a>
+      <a href="service-areas.html">Service Areas</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta reveal hero-enter nav-piece" style="transition-delay:220ms">
+      <a class="btn btn-outline" href="tel:+14374322252">(437) 432-2252</a>
+      <a class="btn btn-primary" href="contact.html">Book a Free Consultation</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ PAGE HERO ============ -->
+  <section class="hero-section">
+    <div class="wrap hero">
+      <div>
+        <p class="eyebrow reveal hero-enter" style="transition-delay:340ms">Portfolio · Greater Toronto Area</p>
+        <h1 class="reveal hero-enter" style="transition-delay:460ms">Projects, before<br>and after.</h1>
+        <p class="sub reveal hero-enter" style="transition-delay:600ms">A look at the scope, sequencing, and finish standard behind NEVACO BUILD renovations, in our clients' own homes across the GTA.</p>
+      </div>
+      <div class="blueprint reveal hero-enter" style="transition-delay:520ms" aria-hidden="true">
+        <svg viewBox="0 0 400 500" fill="none" stroke="#c9c2b3" stroke-width="1.5">
+  <rect x="40" y="70" width="150" height="150" />
+  <rect x="210" y="70" width="150" height="150" />
+  <rect x="40" y="250" width="150" height="150" />
+  <rect x="210" y="250" width="150" height="150" />
+  <line x1="40" y1="220" x2="190" y2="70" stroke="#9c2b2f" stroke-dasharray="4 4" />
+  <line x1="210" y1="220" x2="360" y2="70" stroke-dasharray="2 6" />
+  <circle cx="115" cy="145" r="3" fill="#9c2b2f" stroke="none" />
+  <circle cx="285" cy="325" r="3" fill="#9c2b2f" stroke="none" />
+</svg>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ FEATURED PROJECTS ============ -->
+  <section id="featured-projects" class="on-stone">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Completed Work</p>
+        <h2 style="font-size: clamp(26px,3.4vw,34px);">Projects, by property.</h2>
+        <p class="lede">Click any project to open the full photo gallery for that home.</p>
+      </div>
+      <div class="projects-grid stagger" id="projectsGrid"><!-- rendered by assets/main.js from assets/projects-data.js --></div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECT GALLERY MODAL ============ -->
+  <div id="projectModal" class="project-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Project photo gallery">
+    <div class="project-modal-backdrop" data-modal-close></div>
+    <div class="project-modal-inner">
+      <button class="project-modal-close" type="button" data-modal-close>← Back to Projects</button>
+      <div class="project-modal-stage">
+        <button class="project-modal-nav prev" type="button" aria-label="Previous photo" data-modal-prev>‹</button>
+        <figure class="project-modal-figure">
+          <img id="projectModalImg" src="" alt="">
+        </figure>
+        <button class="project-modal-nav next" type="button" aria-label="Next photo" data-modal-next>›</button>
+      </div>
+      <div class="project-modal-meta">
+        <h3 id="projectModalTitle"></h3>
+        <p id="projectModalCounter"></p>
+      </div>
+    </div>
+  </div>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Recent Work</p>
+        <h2 style="font-size: clamp(26px,3.4vw,34px);">Projects, before and after.</h2>
+        <p class="lede">Drag the divider on any project to compare.</p>
+      </div>
+      <div class="ba-wrap four stagger">
+        <div class="ba-card">
+          <div class="ba-slider" data-ba>
+            <div class="pane before"><img src="assets/projects/fireplace-before.jpg" alt="Living room before renovation, dated fireplace and track lighting"></div>
+            <div class="pane after"><img src="assets/projects/fireplace-after.jpg" alt="Living room after renovation, dark feature wall with built-in electric fireplace"></div>
+            <span class="ba-tag before-tag">Before</span>
+            <span class="ba-tag after-tag">After</span>
+            <div class="handle"></div>
+          </div>
+          <div class="ba-caption">Basement &amp; Living Room — Feature Fireplace Wall</div>
+        </div>
+        <div class="ba-card">
+          <div class="ba-slider" data-ba>
+            <div class="pane before"><img src="assets/projects/greatroom-before.jpg" alt="Empty living space before renovation, original hardwood flooring"></div>
+            <div class="pane after"><img src="assets/projects/greatroom-after.jpg" alt="Open-concept great room after renovation, furnished with new engineered flooring"></div>
+            <span class="ba-tag before-tag">Before</span>
+            <span class="ba-tag after-tag">After</span>
+            <div class="handle"></div>
+          </div>
+          <div class="ba-caption">Open-Concept Great Room Renovation</div>
+        </div>
+        <div class="ba-card">
+          <div class="ba-slider tall" data-ba>
+            <div class="pane before"><img src="assets/projects/staircase-view-before.jpg" alt="Staircase before renovation, carpeted treads and painted oak spindles"></div>
+            <div class="pane after"><img src="assets/projects/staircase-view-after.jpg" alt="Staircase after renovation, stained hardwood treads with wrought-iron spindles"></div>
+            <span class="ba-tag before-tag">Before</span>
+            <span class="ba-tag after-tag">After</span>
+            <div class="handle"></div>
+          </div>
+          <div class="ba-caption">Staircase Renovation — Hardwood &amp; Iron Railing</div>
+        </div>
+        <div class="ba-card">
+          <div class="ba-slider tall" data-ba>
+            <div class="pane before"><img src="assets/projects/staircase-full-before.jpg" alt="Curved staircase before renovation, worn carpet and oak spindles"></div>
+            <div class="pane after"><img src="assets/projects/staircase-full-after.jpg" alt="Curved staircase after renovation, stained hardwood and wrought-iron railing"></div>
+            <span class="ba-tag before-tag">Before</span>
+            <span class="ba-tag after-tag">After</span>
+            <div class="handle"></div>
+          </div>
+          <div class="ba-caption">Curved Staircase — Full Rebuild</div>
+        </div>
+        <div class="ba-card">
+          <div class="ba-slider tall" data-ba>
+            <div class="pane before"><img src="assets/projects/frontdoor-before.jpg" alt="Front entry before renovation, dated white paneled door"></div>
+            <div class="pane after"><img src="assets/projects/frontdoor-after.jpg" alt="Front entry after renovation, modern black door with marble flooring"></div>
+            <span class="ba-tag before-tag">Before</span>
+            <span class="ba-tag after-tag">After</span>
+            <div class="handle"></div>
+          </div>
+          <div class="ba-caption">Front Entry Renovation</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="on-charcoal">
+    <div class="wrap" style="text-align:center;">
+      <div class="reveal" style="max-width:560px; margin:0 auto;">
+        <p class="eyebrow on-dark">Your Project, Featured Here</p>
+        <h2 style="font-size: clamp(26px,3.4vw,34px); color: var(--on-charcoal); margin-bottom:18px;">Ready to start your own before &amp; after?</h2>
+        <p style="color: var(--on-charcoal-soft); font-size:15px; margin-bottom:28px;">Book a free site visit and we'll scope your project the same way we scoped the ones above.</p>
+        <a class="btn btn-primary" href="contact.html">Book a Free Consultation</a>
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site">
+  <div class="wrap footer-grid">
+    <div>
+      <img src="assets/nevaco-logo-light.png" alt="NEVACO BUILD">
+    </div>
+    <div class="footer-col">
+      <h4>Site Map</h4>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="service-areas.html">Service Areas</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="tel:+14374322252">(437) 432-2252</a>
+      <a href="mailto:nevacobuild@gmail.com">nevacobuild@gmail.com</a>
+      <a href="service-areas.html">Serving the GTA</a>
+    </div>
+    <div class="footer-col">
+      <h4>Follow</h4>
+      <a class="social-link" href="https://www.instagram.com/nevaco.build/" target="_blank" rel="noopener" aria-label="Instagram — opens in a new tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
+      <a class="social-link" href="https://wa.me/14374322252?text=Hi%21%20I%27m%20interested%20in%20a%20renovation%20project%20and%20would%20like%20to%20learn%20more." target="_blank" rel="noopener" aria-label="WhatsApp — opens a chat in a new tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3a8 8 0 0 0-7 11.9L4 21l6.2-1.1A8 8 0 1 0 12 3Z"/><path d="M8.6 9.6c.3 2.6 2.5 4.8 5.1 5.1.9.1 1.6-.5 1.6-1.4v-.2a.8.8 0 0 0-.4-.7l-1.5-.8a.8.8 0 0 0-.9.1l-.5.5a5.4 5.4 0 0 1-2.2-2.2l.5-.5a.8.8 0 0 0 .1-.9l-.8-1.5a.8.8 0 0 0-.7-.4h-.2c-.9 0-1.5.7-1.4 1.6Z"/></svg><span>WhatsApp</span></a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© <span id="year"></span> NEVACO BUILD INC. All Rights Reserved.</span>
+    <span>Toronto, ON — Serving the GTA</span>
+  </div>
+</footer>
+
+<script src="assets/projects-data.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>
