@@ -64,107 +64,157 @@
 
 <main id="top">
 
-  <!-- ============ PAGE HERO — FLYOVER MAP ============ -->
+  <!-- ============ PAGE HERO — FLYOVER GLOBE ============ -->
   <section class="areas-hero">
-    <div class="wrap areas-hero-intro reveal">
-      <p class="eyebrow on-dark">Service Areas · Greater Toronto Area</p>
-      <h1 style="color:var(--on-charcoal);">Serving the Greater<br>Toronto Area.</h1>
-      <p class="sub" style="color:var(--on-charcoal-soft); max-width:56ch; margin-left:auto; margin-right:auto;">From downtown Toronto north to Barrie, and every community in between — one team, one standard, wherever your project is.</p>
-    </div>
-    <div class="areas-map reveal" aria-hidden="true">
-      <svg viewBox="0 0 680 900" preserveAspectRatio="xMidYMid meet">
-        <g class="map-zoom">
-          <circle cx="320" cy="820" r="130" fill="none" stroke="rgba(236,233,227,0.08)" stroke-dasharray="3 6"/>
-          <circle cx="320" cy="820" r="260" fill="none" stroke="rgba(236,233,227,0.07)" stroke-dasharray="3 6"/>
-          <circle cx="320" cy="820" r="390" fill="none" stroke="rgba(236,233,227,0.06)" stroke-dasharray="3 6"/>
-          <circle cx="320" cy="820" r="520" fill="none" stroke="rgba(236,233,227,0.05)" stroke-dasharray="3 6"/>
+    <div class="areas-hero-bg reveal" aria-hidden="true">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <radialGradient id="spaceGrad" cx="50%" cy="8%" r="95%">
+            <stop offset="0%" stop-color="#0d1b26"/>
+            <stop offset="35%" stop-color="#090c10"/>
+            <stop offset="100%" stop-color="#000000"/>
+          </radialGradient>
+          <filter id="glow" x="-150%" y="-150%" width="400%" height="400%">
+            <feGaussianBlur stdDeviation="8" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glowSoft" x="-200%" y="-200%" width="500%" height="500%">
+            <feGaussianBlur stdDeviation="14"/>
+          </filter>
+        </defs>
 
-          <g stroke="rgba(236,233,227,0.16)" stroke-width="1" fill="none">
-            <path d="M320,820 L190,795"/>
-            <path d="M190,795 L100,745"/>
-            <path d="M100,745 L55,810"/>
-            <path d="M320,820 L460,805"/>
-            <path d="M460,805 L530,770"/>
-            <path d="M530,770 L565,735"/>
-            <path d="M565,735 L595,700"/>
-            <path d="M595,700 L615,665"/>
-            <path d="M320,540 L430,545"/>
+        <rect x="0" y="0" width="1600" height="900" fill="url(#spaceGrad)"/>
+
+        <!-- stars -->
+        <g fill="#eef3f7">
+          <circle class="star" style="--o:0.8" cx="120" cy="60" r="1.6"/>
+          <circle class="star" style="--o:0.5" cx="260" cy="110" r="1.1"/>
+          <circle class="star" style="--o:0.9" cx="400" cy="40" r="1.8"/>
+          <circle class="star" style="--o:0.4" cx="520" cy="95" r="1"/>
+          <circle class="star" style="--o:0.7" cx="700" cy="30" r="1.4"/>
+          <circle class="star" style="--o:0.5" cx="900" cy="70" r="1.2"/>
+          <circle class="star" style="--o:0.8" cx="1080" cy="45" r="1.7"/>
+          <circle class="star" style="--o:0.4" cx="1220" cy="100" r="1"/>
+          <circle class="star" style="--o:0.9" cx="1380" cy="55" r="1.6"/>
+          <circle class="star" style="--o:0.5" cx="1500" cy="120" r="1.1"/>
+          <circle class="star" style="--o:0.6" cx="60" cy="140" r="1.3"/>
+          <circle class="star" style="--o:0.7" cx="1540" cy="150" r="1.4"/>
+          <circle class="star" style="--o:0.4" cx="800" cy="15" r="1"/>
+          <circle class="star" style="--o:0.6" cx="1000" cy="130" r="1.2"/>
+          <circle class="star" style="--o:0.5" cx="330" cy="150" r="1"/>
+        </g>
+
+        <!-- earth limb / atmosphere glow -->
+        <path d="M-100,511 Q800,260 1700,511" stroke="#4f8fbf" stroke-width="14" fill="none" opacity="0.4" filter="url(#glowSoft)"/>
+        <path d="M-100,511 Q800,260 1700,511" stroke="#bcd8ec" stroke-width="3" fill="none" opacity="0.6"/>
+
+        <!-- globe surface (huge circle, only the cap shows) -->
+        <circle cx="800" cy="1660" r="1400" fill="#0a0d12"/>
+        <circle cx="800" cy="1660" r="1400" fill="none" stroke="#2a4a63" stroke-width="2" opacity="0.7"/>
+        <!-- faint latitude bands for sphere read -->
+        <path d="M-140,560 Q800,340 1740,560" stroke="#1c3348" stroke-width="2" fill="none" opacity="0.5"/>
+        <path d="M-180,650 Q800,470 1780,650" stroke="#182c3f" stroke-width="2" fill="none" opacity="0.4"/>
+
+        <g class="camera">
+          <!-- ambient network mesh -->
+          <g stroke="rgba(255,200,140,0.14)" stroke-width="1" fill="none">
+            <path d="M500,760 L850,760"/>
+            <path d="M1220,635 L850,760"/>
+            <path d="M810,630 L1000,752"/>
+            <path d="M700,750 L858,690"/>
           </g>
 
-          <path class="flight-draw" d="M320,820 Q330,760 330,700 Q300,650 295,590 Q325,540 345,490 Q315,435 310,380 Q330,330 335,280 Q305,225 300,170 Q322,120 322,68" fill="none" stroke="#9c2b2f" stroke-width="2" stroke-dasharray="1600" stroke-dashoffset="1600"/>
+          <g stroke="rgba(255,200,140,0.22)" stroke-width="1.2" fill="none">
+            <path d="M850,760 L700,750"/>
+            <path d="M700,750 L580,715"/>
+            <path d="M580,715 L500,760"/>
+            <path d="M850,760 L1000,752"/>
+            <path d="M1000,752 L1090,725"/>
+            <path d="M1090,725 L1140,695"/>
+            <path d="M1140,695 L1185,665"/>
+            <path d="M1185,665 L1220,635"/>
+            <path d="M895,605 L955,615"/>
+          </g>
 
-          <g class="stagger" font-family="Manrope, sans-serif" font-size="13" fill="#ece9e3">
+          <path class="flight-draw" d="M850,760 Q858,725 858,690 Q812,660 810,630 Q855,615 895,605 Q825,575 820,545 Q860,520 875,490 Q825,460 815,430 Q835,405 850,380" fill="none" stroke="#c8452f" stroke-width="3" stroke-dasharray="1500" stroke-dashoffset="1500"/>
+
+          <g class="stagger" font-family="Manrope, sans-serif" fill="#f3ede2">
             <g class="city corridor-label">
-              <circle cx="320" cy="820" r="7" fill="#9c2b2f"/>
-              <text x="334" y="824">Toronto</text>
+              <circle cx="850" cy="760" r="12" fill="#e8583a" filter="url(#glow)"/>
+              <text x="869" y="766">Toronto</text>
             </g>
             <g class="city branch-label">
-              <circle cx="190" cy="795" r="4.5" fill="#ece9e3"/>
-              <text x="190" y="778" text-anchor="middle">Etobicoke</text>
+              <circle cx="700" cy="750" r="5.5" fill="#ffcf8a"/>
+              <text x="700" y="732" text-anchor="middle">Etobicoke</text>
             </g>
             <g class="city branch-label">
-              <circle cx="460" cy="805" r="4.5" fill="#ece9e3"/>
-              <text x="460" y="788" text-anchor="middle">Scarborough</text>
+              <circle cx="1000" cy="752" r="5.5" fill="#ffcf8a"/>
+              <text x="1000" y="734" text-anchor="middle">Scarborough</text>
             </g>
             <g class="city branch-label">
-              <circle cx="100" cy="745" r="4.5" fill="#ece9e3"/>
-              <text x="100" y="728" text-anchor="middle">Mississauga</text>
+              <circle cx="580" cy="715" r="5.5" fill="#ffcf8a"/>
+              <text x="580" y="697" text-anchor="middle">Mississauga</text>
             </g>
             <g class="city branch-label">
-              <circle cx="55" cy="810" r="4.5" fill="#ece9e3"/>
-              <text x="55" y="793" text-anchor="middle">Oakville</text>
+              <circle cx="500" cy="760" r="5.5" fill="#ffcf8a"/>
+              <text x="500" y="742" text-anchor="middle">Oakville</text>
             </g>
             <g class="city branch-label">
-              <circle cx="530" cy="770" r="4.5" fill="#ece9e3"/>
-              <text x="530" y="753" text-anchor="middle">Pickering</text>
+              <circle cx="1090" cy="725" r="5.5" fill="#ffcf8a"/>
+              <text x="1090" y="707" text-anchor="middle">Pickering</text>
             </g>
             <g class="city branch-label">
-              <circle cx="565" cy="735" r="4.5" fill="#ece9e3"/>
-              <text x="565" y="718" text-anchor="middle">Ajax</text>
+              <circle cx="1140" cy="695" r="5.5" fill="#ffcf8a"/>
+              <text x="1140" y="677" text-anchor="middle">Ajax</text>
             </g>
             <g class="city branch-label">
-              <circle cx="595" cy="700" r="4.5" fill="#ece9e3"/>
-              <text x="595" y="683" text-anchor="middle">Whitby</text>
+              <circle cx="1185" cy="665" r="5.5" fill="#ffcf8a"/>
+              <text x="1185" y="647" text-anchor="middle">Whitby</text>
             </g>
             <g class="city branch-label">
-              <circle cx="615" cy="665" r="4.5" fill="#ece9e3"/>
-              <text x="615" y="648" text-anchor="middle">Oshawa</text>
-            </g>
-            <g class="city corridor-label">
-              <circle cx="330" cy="700" r="5" fill="#9c2b2f"/>
-              <text x="344" y="704">North York</text>
-            </g>
-            <g class="city branch-label">
-              <circle cx="430" cy="545" r="4.5" fill="#ece9e3"/>
-              <text x="430" y="528" text-anchor="middle">Markham</text>
+              <circle cx="1220" cy="635" r="5.5" fill="#ffcf8a"/>
+              <text x="1220" y="617" text-anchor="middle">Oshawa</text>
             </g>
             <g class="city corridor-label">
-              <circle cx="295" cy="590" r="5" fill="#9c2b2f"/>
-              <text x="205" y="594" text-anchor="end">Vaughan</text>
+              <circle cx="858" cy="690" r="6.5" fill="#e8583a"/>
+              <text x="875" y="695">North York</text>
+            </g>
+            <g class="city branch-label">
+              <circle cx="955" cy="615" r="5.5" fill="#ffcf8a"/>
+              <text x="955" y="597" text-anchor="middle">Markham</text>
             </g>
             <g class="city corridor-label">
-              <circle cx="345" cy="490" r="5" fill="#9c2b2f"/>
-              <text x="359" y="494">Richmond Hill</text>
+              <circle cx="810" cy="630" r="6.5" fill="#e8583a"/>
+              <text x="793" y="635" text-anchor="end">Vaughan</text>
             </g>
             <g class="city corridor-label">
-              <circle cx="310" cy="380" r="5" fill="#9c2b2f"/>
-              <text x="220" y="384" text-anchor="end">Aurora</text>
+              <circle cx="895" cy="605" r="6.5" fill="#e8583a"/>
+              <text x="912" y="610">Richmond Hill</text>
             </g>
             <g class="city corridor-label">
-              <circle cx="335" cy="280" r="5" fill="#9c2b2f"/>
-              <text x="349" y="284">Newmarket</text>
+              <circle cx="820" cy="545" r="6.5" fill="#e8583a"/>
+              <text x="803" y="550" text-anchor="end">Aurora</text>
             </g>
             <g class="city corridor-label">
-              <circle cx="300" cy="170" r="5" fill="#9c2b2f"/>
-              <text x="210" y="174" text-anchor="end">Innisfil</text>
+              <circle cx="875" cy="490" r="6.5" fill="#e8583a"/>
+              <text x="892" y="495">Newmarket</text>
             </g>
             <g class="city corridor-label">
-              <circle class="flight-end" cx="322" cy="68" r="7" fill="#9c2b2f"/>
-              <text x="336" y="72" style="font-weight:700;">Barrie</text>
+              <circle cx="815" cy="430" r="6.5" fill="#e8583a"/>
+              <text x="798" y="435" text-anchor="end">Innisfil</text>
+            </g>
+            <g class="city corridor-label">
+              <circle class="flight-end" cx="850" cy="380" r="12" fill="#e8583a" filter="url(#glow)"/>
+              <text x="869" y="386" style="font-weight:700;">Barrie</text>
             </g>
           </g>
         </g>
       </svg>
+    </div>
+    <div class="wrap areas-hero-intro reveal">
+      <p class="eyebrow on-dark">Service Areas · Greater Toronto Area</p>
+      <h1 style="color:var(--on-charcoal);">Serving the Greater<br>Toronto Area.</h1>
+      <p class="sub" style="color:var(--on-charcoal-soft); max-width:56ch; margin-left:auto; margin-right:auto;">From downtown Toronto north to Barrie, and every community in between — one team, one standard, wherever your project is.</p>
     </div>
   </section>
 
@@ -236,7 +286,7 @@
     <div class="footer-col">
       <h4>Follow</h4>
       <a class="social-link" href="https://www.instagram.com/nevaco.build/" target="_blank" rel="noopener" aria-label="Instagram — opens in a new tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
-      <a class="social-link" href="https://wa.me/14374322252?text=Hi%21%20I%27m%20interested%20in%20a%20renovation%20project%20and%20would%20like%20to%20learn%20more." target="_blank" rel="noopener" aria-label="WhatsApp — opens a chat in a new tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3a8 8 0 0 0-7 11.9L4 21l6.2-1.1A8 8 0 1 0 12 3Z"/><path d="M8.6 9.6c.3 2.6 2.5 4.8 5.1 5.1.9.1 1.6-.5 1.6-1.4v-.2a.8.8 0 0 0-.4-.7l-1.5-.8a.8.8 0 0 0-.9.1l-.5.5a5.4 5.4 0 0 1-2.2-2.2l.5-.5a.8.8 0 0 0 .1-.9l-.8-1.5a.8.8 0 0 0-.7-.4h-.2c-.9 0-1.5.7-1.4 1.6Z"/></svg><span>WhatsApp</span></a>
+      <a class="social-link" href="https://wa.me/14374322252?text=Hi%21%20I%27m%20interested%20in%20a%20renovation%20project%20and%20would%20like%20to%20learn%20more." target="_blank" rel="noopener" aria-label="WhatsApp — opens a chat in a new tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3a8 8 0 0 0-7 11.9L4 21l6.2-1.1A8 8 0 1 0 12 3Z"/><path d="M8.6 9.6c.3 2.6 2.5 4.8 5.1 5.1.9.1 1.6-.5 1.6-1.4v-.2a.8.8 0 0 0-.4-.7l-1.5-.8a.8.8 0 0 0-.9.1l-.5.5a5.4 5.4 0 0 1-2.2-2.2l.5-.5a.8.8 0 0 0-.1-.9l-.8-1.5a.8.8 0 0 0-.7-.4h-.2c-.9 0-1.5.7-1.4 1.6Z"/></svg><span>WhatsApp</span></a>
     </div>
   </div>
   <div class="wrap footer-bottom">
