@@ -729,19 +729,20 @@
   .star { animation: twinkle 3.6s ease-in-out infinite; }
   @keyframes twinkle { 0%, 100% { opacity: var(--o, 0.6); } 50% { opacity: calc(var(--o, 0.6) * 0.35); } }
 
-  /* Mobile: keep the whole flight path on-screen (no side-cropping) and make city
-     names legible at small sizes instead of relying on the desktop crop/scale. */
+  /* Mobile: the whole SVG scales down with viewport width (a 1600-unit-wide scene
+     on a ~390px phone shrinks ~4x), which was making every label and dot too small
+     to read. Zooming the rendered SVG itself (not just individual labels) keeps
+     text/dot proportions identical to desktop while making them legible; the
+     corridor is centered in the zoom so Toronto through Barrie stays fully framed. */
   @media (max-width: 680px) {
-    .areas-hero { min-height: 340px; max-height: none; }
+    .areas-hero { min-height: 420px; max-height: none; }
     .areas-hero .areas-hero-intro { padding-top: 6vh; }
     .areas-hero-intro .sub { display: none; }
-    .city.corridor-label text { font-size: 22px; }
-    .city.branch-label text { font-size: 19px; fill: #d9c9a8; }
-    .city.corridor-label circle { r: 10px; }
-    .city.branch-label circle { r: 8px; }
+    .areas-hero-bg svg { transform: scale(2.4); transform-origin: 53% 72%; }
   }
   @media (max-width: 420px) {
-    .areas-hero { min-height: 300px; }
+    .areas-hero { min-height: 380px; }
+    .areas-hero-bg svg { transform: scale(2.8); }
   }
 
   @media (prefers-reduced-motion: reduce) {
