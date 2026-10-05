@@ -23,7 +23,11 @@
   document.querySelectorAll('.stagger').forEach(function (group) {
     Array.prototype.forEach.call(group.children, function (child, i) {
       child.classList.add('reveal');
-      child.style.transitionDelay = reduceMotion ? '0ms' : (i * 160) + 'ms';
+      // Capped stagger: each item waits a touch longer than the last, but
+      // never more than ~420ms total — keeps large grids (9 service cards,
+      // etc.) feeling like one consistent, minimal cascade instead of a
+      // slow trickle that reads as a different speed by the time it ends.
+      child.style.transitionDelay = reduceMotion ? '0ms' : Math.min(i * 90, 420) + 'ms';
     });
   });
 
@@ -36,7 +40,7 @@
           io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
     revealEls.forEach(function (el) {
       if (!el.classList.contains('hero-enter')) io.observe(el);
     });
@@ -108,22 +112,49 @@
   window.addEventListener('scroll', updateHeaderState, { passive: true });
   updateHeaderState();
 
-  // Before/after drag sliders
+  // Before/after drag sliders — smooth on mouse and touch alike. Updates are
+  // batched to one per animation frame (rAF) so fast mouse/finger movement
+  // never outruns the browser's paint and feels jerky, and touch-action:none
+  // (set in CSS) plus preventDefault here stops the page itself from trying
+  // to scroll while someone is mid-drag on a phone, which is what made it
+  // feel like it "got stuck" on mobile before.
   document.querySelectorAll('[data-ba]').forEach(function (slider) {
     var after = slider.querySelector('.after');
     var handle = slider.querySelector('.handle');
     var dragging = false;
+    var pendingX = null;
+    var rafId = null;
 
-    function setPos(clientX) {
+    function applyPos(clientX) {
       var rect = slider.getBoundingClientRect();
       var pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100));
       after.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
       handle.style.left = pct + '%';
     }
 
-    slider.addEventListener('pointerdown', function (e) { dragging = true; setPos(e.clientX); slider.setPointerCapture(e.pointerId); });
-    slider.addEventListener('pointermove', function (e) { if (dragging) setPos(e.clientX); });
+    function tick() {
+      rafId = null;
+      if (pendingX !== null) { applyPos(pendingX); pendingX = null; }
+    }
+
+    function queuePos(clientX) {
+      pendingX = clientX;
+      if (rafId === null) rafId = requestAnimationFrame(tick);
+    }
+
+    slider.addEventListener('pointerdown', function (e) {
+      dragging = true;
+      applyPos(e.clientX);
+      slider.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    slider.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      e.preventDefault();
+      queuePos(e.clientX);
+    });
     slider.addEventListener('pointerup', function () { dragging = false; });
+    slider.addEventListener('pointercancel', function () { dragging = false; });
     slider.addEventListener('pointerleave', function () { dragging = false; });
   });
 
