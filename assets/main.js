@@ -142,15 +142,18 @@
       if (rafId === null) rafId = requestAnimationFrame(tick);
     }
 
+    // touch-action: pan-y (in CSS) already tells the browser this element
+    // only owns horizontal gestures and vertical swipes should keep
+    // scrolling the page as normal, so no preventDefault is needed here —
+    // adding one would fight that and can freeze vertical scrolling on
+    // phones when a swipe starts on top of a slider image.
     slider.addEventListener('pointerdown', function (e) {
       dragging = true;
       applyPos(e.clientX);
       slider.setPointerCapture(e.pointerId);
-      e.preventDefault();
     });
     slider.addEventListener('pointermove', function (e) {
       if (!dragging) return;
-      e.preventDefault();
       queuePos(e.clientX);
     });
     slider.addEventListener('pointerup', function () { dragging = false; });
@@ -271,7 +274,7 @@
     // apply the same fade-in-on-scroll treatment to them here.
     Array.prototype.forEach.call(projectsGrid.children, function (child, i) {
       child.classList.add('reveal');
-      child.style.transitionDelay = reduceMotion ? '0ms' : (i * 160) + 'ms';
+      child.style.transitionDelay = reduceMotion ? '0ms' : Math.min(i * 90, 420) + 'ms';
       if ('IntersectionObserver' in window && !reduceMotion) {
         var cardIo = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {

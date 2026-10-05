@@ -483,7 +483,7 @@
   .ba-wrap { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
   @media (max-width: 760px) { .ba-wrap { grid-template-columns: 1fr; } }
   .ba-card { border: 1px solid var(--stone); background: var(--paper); border-radius: 2px; overflow: hidden; }
-  .ba-slider { position: relative; aspect-ratio: 4/3; overflow: hidden; cursor: ew-resize; user-select: none; touch-action: none; -webkit-user-select: none; }
+  .ba-slider { position: relative; aspect-ratio: 4/3; overflow: hidden; cursor: ew-resize; user-select: none; touch-action: pan-y; -webkit-user-select: none; }
   .ba-slider .after { will-change: clip-path; }
   .ba-slider .handle { will-change: left; }
   .ba-slider .pane { position: absolute; inset: 0; }
