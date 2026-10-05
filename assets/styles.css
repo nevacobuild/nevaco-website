@@ -207,20 +207,58 @@
   .text-link.on-dark { color: var(--on-charcoal); border-color: var(--silver-line); }
   .text-link.on-dark:hover { color: var(--maple-dim); }
 
-  /* Elegant, subtle scroll-in: a soft fade + rise, luxury easing, never flashy */
+  /* Scroll-in: fade + rise, matched to violetbuild.com's measured timing
+     (1.25s, plain ease). Their rise is 100% of each element's own height —
+     fine for a small heading, but ~690px on a full-size photo, which reads
+     as a slide-in rather than a fade on our image-heavy sections. We use
+     their exact duration/easing with a fixed 48px rise instead, so the
+     motion feels the same but stays a "fade that drifts up" on every
+     element, photos included.
+
+     This runs as a separate `animation` (not `transition`) on purpose: a
+     few components (service cards, project cards) already have their own
+     `transition` for hover effects, and `transition` is a single CSS
+     property — whichever rule wins the cascade replaces the whole thing,
+     silently dropping the reveal's opacity/transform transition on just
+     those cards. `animation` is independent of `transition`, so the hover
+     lift and the scroll-reveal never fight over the same property again. */
   .reveal {
     opacity: 0;
-    transform: translateY(26px);
-    transition: opacity 1.1s cubic-bezier(0.19, 1, 0.22, 1), transform 1.1s cubic-bezier(0.19, 1, 0.22, 1);
+    --nevaco-rise: 48px;
   }
-  .reveal.in { opacity: 1; transform: translateY(0); }
+  /* `backwards` (not `forwards`) on purpose: `forwards` would pin the
+     animation's end-state (transform: translateY(0)) on the element
+     permanently, which — because an active/held animation outranks normal
+     CSS rules — silently cancels the hover lift on service/project cards
+     afterwards. `backwards` only applies the *start* keyframe during the
+     animation-delay window; once the animation finishes, nothing from it
+     lingers, so `.reveal.in`'s own plain `opacity: 1` is what persists and
+     normal hover rules work again. */
+  .reveal.in {
+    opacity: 1;
+    animation: nevacoFadeUp 1.25s ease backwards;
+  }
+  @keyframes nevacoFadeUp {
+    from { opacity: 0; transform: translateY(var(--nevaco-rise)); }
+    to { opacity: 1; transform: translateY(0); }
+  }
   /* Header pieces travel a shorter, quieter distance than page content */
-  .reveal.nav-piece:not(.in) { transform: translateY(-12px); }
+  .reveal.nav-piece { --nevaco-rise: -12px; }
   /* While the intro overlay is up, let the hero read as a faint, blurred
      hint behind it rather than a total blank — it still completes its full
-     fade/rise entrance once the overlay clears. */
+     fade/rise entrance once the overlay clears. Its own keyframe starts
+     from that same 0.8 so clearing the overlay never dips the hero toward
+     invisible before it fades back up. */
   .reveal.hero-enter:not(.in) { opacity: 0.8; }
-  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+  .reveal.hero-enter.in { animation-name: nevacoFadeUpHero; }
+  @keyframes nevacoFadeUpHero {
+    from { opacity: 0.8; transform: translateY(var(--nevaco-rise)); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; }
+    .reveal.in { animation: none; }
+  }
 
   /* ---------- Hero ---------- */
   .hero {

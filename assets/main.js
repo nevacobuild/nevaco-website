@@ -20,14 +20,14 @@
   // one after another rather than popping in all at once.
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // No artificial per-item delay — matching violetbuild.com, where every
+  // element just animates the moment it individually crosses into view.
+  // Items in the same row naturally cross together and animate together;
+  // the "cascade" you see on a grid comes purely from scrolling, not a
+  // scripted stagger.
   document.querySelectorAll('.stagger').forEach(function (group) {
-    Array.prototype.forEach.call(group.children, function (child, i) {
+    Array.prototype.forEach.call(group.children, function (child) {
       child.classList.add('reveal');
-      // Capped stagger: each item waits a touch longer than the last, but
-      // never more than ~420ms total — keeps large grids (9 service cards,
-      // etc.) feeling like one consistent, minimal cascade instead of a
-      // slow trickle that reads as a different speed by the time it ends.
-      child.style.transitionDelay = reduceMotion ? '0ms' : Math.min(i * 90, 420) + 'ms';
     });
   });
 
@@ -55,7 +55,15 @@
   function playHeroEntrance() {
     if (heroEntered) return;
     heroEntered = true;
-    document.querySelectorAll('.hero-enter').forEach(function (el) { el.classList.add('in'); });
+    document.querySelectorAll('.hero-enter').forEach(function (el) {
+      // Each element's cascade timing is set inline as transition-delay
+      // (e.g. style="transition-delay:220ms") — the reveal now runs as a
+      // CSS animation instead of a transition, and animation-delay is a
+      // separate property, so it has to be copied over or every hero
+      // piece would animate at once instead of cascading in.
+      if (el.style.transitionDelay) el.style.animationDelay = el.style.transitionDelay;
+      el.classList.add('in');
+    });
   }
 
   // Intro overlay — homepage only. Fully automatic cinematic splash: logo
@@ -274,7 +282,6 @@
     // apply the same fade-in-on-scroll treatment to them here.
     Array.prototype.forEach.call(projectsGrid.children, function (child, i) {
       child.classList.add('reveal');
-      child.style.transitionDelay = reduceMotion ? '0ms' : Math.min(i * 90, 420) + 'ms';
       if ('IntersectionObserver' in window && !reduceMotion) {
         var cardIo = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
