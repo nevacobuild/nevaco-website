@@ -467,6 +467,34 @@
   .stat-tile .label { font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--silver); margin-top: 10px; font-weight: 600; }
   .stats-note { font-size: 12.5px; color: var(--silver); margin-top: 14px; font-style: italic; }
 
+  /* About "Our Story" section with a faded photo background. Same technique as
+     the Contact hero: the photo layer is capped at its native 1200px width and
+     anchored right, fading into charcoal on the left, so it is never enlarged
+     on wide screens; on narrow screens it fills the section. A dark gradient
+     (darker toward the bottom) sits on top and the text switches to light. */
+  .section-photo-bg { position: relative; isolation: isolate; overflow: hidden; background: var(--charcoal); color: var(--on-charcoal); }
+  .section-photo-bg .section-bg { position: absolute; top: 0; right: 0; bottom: 0; width: min(62%, 1200px); z-index: -1; }
+  .section-photo-bg .section-bg img { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: center 40%; }
+  .section-photo-bg .section-bg::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, var(--charcoal) 0%, rgba(28,28,29,0.4) 40%, rgba(28,28,29,0) 100%),
+      linear-gradient(180deg, rgba(10,10,11,0.72) 0%, rgba(10,10,11,0.8) 45%, rgba(10,10,11,0.9) 100%);
+  }
+  @media (max-width: 900px) {
+    .section-photo-bg .section-bg { width: 100%; }
+    .section-photo-bg .section-bg::after { background: linear-gradient(180deg, rgba(10,10,11,0.74) 0%, rgba(10,10,11,0.82) 45%, rgba(10,10,11,0.9) 100%); }
+  }
+  .section-photo-bg .eyebrow { color: #e3a0a2; }
+  .section-photo-bg h2, .section-photo-bg h3 { color: #fbfaf7; }
+  .section-photo-bg .about-grid p { color: rgba(236,233,227,0.88); }
+  .section-photo-bg .pillar p { color: rgba(236,233,227,0.78); }
+  .section-photo-bg .pillar .n { color: #e3a0a2; }
+  .section-photo-bg .stats-row { background: rgba(236,233,227,0.14); border-color: rgba(236,233,227,0.14); }
+  .section-photo-bg .stat-tile { background: rgba(20,20,21,0.62); }
+  .section-photo-bg .stat-tile .num { color: #fbfaf7; }
+  .section-photo-bg .stat-tile .label { color: var(--on-charcoal-soft); }
+
   /* ---------- Services grid ---------- */
   .services-grid {
     display: grid;
