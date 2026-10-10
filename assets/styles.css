@@ -391,6 +391,25 @@
   .service-card .mark { color: var(--maple); font-size: 22px; }
   .service-card h3 { font-size: 18px; font-weight: 500; margin-top: 22px; }
   .service-card p { font-size: 13.5px; color: #5a5b5e; margin: 8px 0 0; }
+  /* Service card photo: same 4:3 frame, 2px radius and hover zoom as the
+     project cards. The photo fades in with .reveal but doesn't rise, so the
+     frame never shows an empty strip while it animates. */
+  .service-card-media {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border-radius: 2px;
+    background: var(--paper-2);
+    margin-bottom: 20px;
+  }
+  .service-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.19,1,0.22,1);
+  }
+  .service-card-media .reveal { --nevaco-rise: 0px; }
+  .service-card:hover .service-card-media img { transform: scale(1.035); }
 
   /* ---------- Featured project cards ---------- */
   .projects-grid {
