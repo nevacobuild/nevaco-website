@@ -362,6 +362,32 @@
   }
   .blueprint svg { width: 100%; height: 100%; }
 
+  /* Page hero with a faded photo background (Contact page). The photo layer
+     is capped at its native 736px width and anchored to the right, fading
+     into charcoal on the left, so the 736x981 image is never enlarged and
+     stays sharp; on narrow screens it fills the section. Same dark gradient
+     (darker toward the bottom) as the blog posts keeps the text readable. */
+  .hero-photo-bg { position: relative; isolation: isolate; overflow: hidden; background: var(--charcoal); }
+  .hero-photo-bg .hero-bg { position: absolute; top: 0; right: 0; bottom: 0; width: min(58%, 736px); z-index: -1; }
+  .hero-photo-bg .hero-bg img { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: center 35%; }
+  .hero-photo-bg .hero-bg::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, var(--charcoal) 0%, rgba(28,28,29,0.35) 45%, rgba(28,28,29,0) 100%),
+      linear-gradient(180deg, rgba(10,10,11,0.62) 0%, rgba(10,10,11,0.74) 45%, rgba(10,10,11,0.84) 100%);
+  }
+  @media (max-width: 900px) {
+    .hero-photo-bg .hero-bg { width: 100%; }
+    .hero-photo-bg .hero-bg::after { background: linear-gradient(180deg, rgba(10,10,11,0.62) 0%, rgba(10,10,11,0.74) 45%, rgba(10,10,11,0.84) 100%); }
+  }
+  .hero-photo-bg .eyebrow { color: #e3a0a2; }
+  .hero-photo-bg h1 { color: #fbfaf7; }
+  .hero-photo-bg .hero p.sub { color: rgba(236,233,227,0.9); }
+  /* .hero's own padding shorthand drops .wrap's side gutters; restore them so
+     the text lines up with the rest of the page and doesn't touch the edge. */
+  .hero-photo-bg .hero { padding-left: 32px; padding-right: 32px; }
+  @media (max-width: 640px) { .hero-photo-bg .hero { padding-left: 20px; padding-right: 20px; } }
+
   /* ---------- Hero (full-width photo, homepage only) ---------- */
   .hero-photo {
     position: relative;
@@ -785,27 +811,6 @@
   .contact-info-list a { text-decoration: none; font-size: 15px; display: flex; align-items: center; gap: 12px; color: var(--on-charcoal); }
   .contact-info-list a:hover { color: var(--maple); }
   .contact-info-list .ico { width: 18px; text-align: center; }
-  /* Contact: photo panel behind the "Get in touch" column. Kept to a
-     contained column (never full-bleed) so the 736x981 photo is shown at or
-     below its native size and stays sharp; same dark gradient as the blog
-     posts so the light text stays readable. */
-  .contact-photo-panel {
-    position: relative; isolation: isolate; overflow: hidden;
-    border-radius: 2px;
-    padding: 44px 40px 40px;
-    max-width: 736px;
-    background: var(--charcoal-2);
-  }
-  .contact-photo-panel > .contact-photo-img {
-    position: absolute; inset: 0; z-index: -2;
-    width: 100%; height: 100%; max-width: none;
-    object-fit: cover; object-position: center 30%;
-  }
-  .contact-photo-panel::before {
-    content: ""; position: absolute; inset: 0; z-index: -1;
-    background: linear-gradient(180deg, rgba(10,10,11,0.62) 0%, rgba(10,10,11,0.74) 45%, rgba(10,10,11,0.84) 100%);
-  }
-  @media (max-width: 640px) { .contact-photo-panel { padding: 32px 24px 28px; } }
   .social-row { display: flex; gap: 14px; margin-top: 28px; }
   .social-row a {
     width: 38px; height: 38px; border: 1px solid var(--silver-line); border-radius: 50%;
