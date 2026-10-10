@@ -99,36 +99,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
-<style>
-  /* ---- Page-only: fixed photo background behind the article ---- */
-  /* A position:fixed layer (not background-attachment:fixed, which iOS Safari
-     ignores). Sized to the *large* viewport (lvh) so the photo still covers the
-     screen when mobile browser toolbars collapse/expand while scrolling. */
-  .post-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100lvh; z-index: -1; overflow: hidden; background: #111214; pointer-events: none; }
-  .post-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-  .post-bg::after { content: ""; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(10,10,11,0.62) 0%, rgba(10,10,11,0.74) 45%, rgba(10,10,11,0.84) 100%); }
-  .post-dark { background: transparent; }
-  .post-dark section { background: transparent; }
-  .post-dark .eyebrow { color: #e3a0a2; }
-  .post-dark h1, .post-dark h2, .post-dark h3 { color: #fbfaf7; }
-  .post-dark .post-sub { font-size: 16.5px; color: rgba(236,233,227,0.9); max-width: 60ch; margin: 22px 0 0; }
-  .post-dark .post-byline { font-size: 13px; color: rgba(236,233,227,0.72); margin-top: 14px; }
-  .post-body { color: rgba(244,242,237,0.92); text-shadow: 0 1px 2px rgba(0,0,0,0.35); }
-  .post-body h2 { font-size: clamp(22px,2.8vw,28px); margin: 40px 0 14px; }
-  .post-body h2 .num { color: #e3a0a2; margin-right: 6px; }
-  .post-body h3 { font-size: 17px; font-family: var(--font-body); font-weight: 600; margin: 24px 0 8px; }
-  .post-body a { color: #fff; text-decoration-color: #e3a0a2; text-underline-offset: 3px; }
-  .post-body a:hover { color: #e3a0a2; }
-  .post-body hr { border: 0; border-top: 1px solid rgba(236,233,227,0.22); margin: 44px 0 0; }
-  .post-cta { background: rgba(17,18,20,0.55) !important; border-top: 1px solid rgba(236,233,227,0.12); border-bottom: 1px solid rgba(236,233,227,0.12); }
-  .post-dark .text-link { color: #f4f2ed; border-color: rgba(236,233,227,0.35); }
-  .post-dark .text-link:hover { color: #e3a0a2; border-color: #e3a0a2; }
-</style>
 </head>
 <body>
 
-<!-- Fixed background photo (this post only) -->
+<!-- Fixed cover photo behind the article (shared .post-bg pattern in assets/styles.css) -->
 <div class="post-bg"><img src="assets/images/blog/renovation-mistakes-blog-background.jpg" alt="Architect reviewing a renovation floor plan and blueprint at a desk" fetchpriority="high"></div>
 
 <!-- ============ HEADER ============ -->
