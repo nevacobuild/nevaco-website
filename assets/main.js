@@ -474,3 +474,58 @@
       });
     });
   });
+
+  // ---------------------------------------------------------------------
+  // Blog posts: "In this guide" sidebar
+  // ---------------------------------------------------------------------
+  // Builds a table of contents from the post's <h2> headings plus a
+  // consultation button, and drops it beside the article. CSS shows it as a
+  // sticky column from 1100px up and hides it on smaller screens.
+  (function () {
+    var text = document.querySelector('#article .post-text');
+    if (!text) return;
+    var headings = text.querySelectorAll('h2');
+    if (headings.length < 2) return;
+
+    var used = {};
+    function slugify(str) {
+      var base = str.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'section';
+      var slug = base, n = 2;
+      while (used[slug] || (document.getElementById(slug) && document.getElementById(slug).tagName !== 'H2')) { slug = base + '-' + n++; }
+      used[slug] = true;
+      return slug;
+    }
+
+    var aside = document.createElement('aside');
+    aside.className = 'post-aside' + (text.closest('.post-dark') ? ' on-dark' : '');
+    aside.setAttribute('aria-label', 'In this guide');
+    var items = '';
+    var links = [];
+    headings.forEach(function (h) {
+      var label = h.textContent.replace(/^(\d+\.)\s*/, '$1 ').trim();
+      if (!h.id) h.id = slugify(label.replace(/^\d+\.\s*/, ''));
+      items += '<li><a href="#' + h.id + '">' + label.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</a></li>';
+    });
+    aside.innerHTML =
+      '<div class="post-aside-inner">' +
+        '<p class="eyebrow">In this guide</p>' +
+        '<ol>' + items + '</ol>' +
+        '<a class="btn ' + (text.closest('.post-dark') ? 'btn-ghost-light' : 'btn-primary') + '" href="contact.html">Book a Free Consultation</a>' +
+      '</div>';
+    text.parentElement.appendChild(aside);
+    aside.querySelectorAll('ol a').forEach(function (a) { links.push(a); });
+
+    // Highlight the section currently being read: the last heading that has
+    // scrolled up to just below the sticky header.
+    var ticking = false;
+    function updateCurrent() {
+      ticking = false;
+      var current = null;
+      headings.forEach(function (h) { if (h.getBoundingClientRect().top <= 150) current = h.id; });
+      links.forEach(function (a) { a.setAttribute('aria-current', current && a.getAttribute('href') === '#' + current ? 'true' : 'false'); });
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(updateCurrent); }
+    }, { passive: true });
+    updateCurrent();
+  })();
