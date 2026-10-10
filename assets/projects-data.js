@@ -95,5 +95,15 @@ window.NEVACO_PROJECTS = [
       { src: "assets/projects/banbury-basement-recroom.jpg", alt: "Finished basement renovation, open-concept recreation room", label: "" },
       { src: "assets/projects/banbury-basement-kitchenette.jpg", alt: "Finished basement renovation, kitchenette with custom cabinetry", label: "" }
     ]
+  },
+  {
+    id: "design-concept-kitchen",
+    title: "Kitchen Design Concept",
+    address: "Design concept",
+    description: "Every project starts as a plan. We take your space from architectural sketch to finished render before construction begins, so you can see the result first.",
+    cover: "assets/projects/kitchen-renovation-design-concept-nevaco-build.jpg",
+    photos: [
+      { src: "assets/projects/kitchen-renovation-design-concept-nevaco-build.jpg", alt: "Kitchen renovation design concept — from architectural sketch to finished render", label: "" }
+    ]
   }
 ];
