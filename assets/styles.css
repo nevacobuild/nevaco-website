@@ -46,6 +46,53 @@
   @media (min-width: 1600px) { :root { --container: 1480px; } }
   @media (min-width: 1920px) { :root { --container: 1680px; } }
 
+  /* Blog posts: the column runs the full site container (aligned with the
+     header and every other section), while the text itself keeps a readable
+     line length and steps up in size on larger screens. */
+  .post-wrap > * { max-width: 800px; }
+  .post-text { font-size: 15.5px; line-height: 1.75; }
+  .post-text h2 { scroll-margin-top: 120px; }
+  @media (min-width: 1200px) { .post-text { font-size: 17px; } }
+  @media (min-width: 1600px) { .post-text { font-size: 18px; } }
+
+  /* "In this guide" sidebar — built by main.js from the post's headings.
+     Shown beside the article from 1100px up; sticks while the article
+     scrolls and stops at the end of the article section. */
+  .post-aside { display: none; }
+  @media (min-width: 1100px) {
+    #article > .post-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 800px) minmax(240px, 300px);
+      justify-content: space-between;
+      column-gap: 64px;
+      align-items: start;
+    }
+    .post-aside { display: block; position: sticky; top: 124px; }
+  }
+  .post-aside-inner { border-left: 1px solid var(--stone); padding: 4px 0 4px 28px; }
+  .post-aside .eyebrow { margin-bottom: 16px; }
+  .post-aside ol { list-style: none; margin: 0 0 28px; padding: 0; display: grid; gap: 12px; }
+  .post-aside ol a {
+    display: block; font-size: 14px; line-height: 1.45; color: #5a5b5e; text-decoration: none;
+    border-left: 2px solid transparent; margin-left: -30px; padding-left: 28px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .post-aside ol a:hover { color: var(--ink); }
+  .post-aside ol a[aria-current="true"] { color: var(--ink); border-left-color: var(--maple); }
+  .post-aside .btn { width: 100%; justify-content: center; padding: 15px 14px; font-size: 12.5px; white-space: nowrap; }
+  /* Dark-background posts (fixed photo): give the sidebar its own dark card. */
+  .post-aside.on-dark .post-aside-inner {
+    background: rgba(17,18,20,0.72);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    border: 1px solid rgba(236,233,227,0.14);
+    border-radius: 2px;
+    padding: 26px 22px 24px;
+  }
+  .post-aside.on-dark .eyebrow { color: #e3a0a2; }
+  .post-aside.on-dark ol a { color: rgba(236,233,227,0.78); margin-left: -22px; padding-left: 20px; }
+  .post-aside.on-dark ol a:hover, .post-aside.on-dark ol a[aria-current="true"] { color: #fbfaf7; }
+  .post-aside.on-dark ol a[aria-current="true"] { border-left-color: #e3a0a2; }
+
   h1, h2, h3 { font-family: var(--font-display); font-weight: 500; margin: 0; text-wrap: balance; }
 
   .eyebrow {
