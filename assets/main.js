@@ -468,6 +468,7 @@
         if (ok) {
           statusEl.textContent = 'Thank you — your request has been received. We\'ll be in touch shortly to confirm your site visit.';
           form.reset();
+          if (window.fbq) fbq('track', 'Lead');
         } else {
           statusEl.textContent = 'Something went wrong sending your request — please call or email us directly and we\'ll get you booked in.';
         }
@@ -529,3 +530,11 @@
     }, { passive: true });
     updateCurrent();
   })();
+
+// ---------------------------------------------------------------------
+// Meta Pixel: track phone and WhatsApp clicks as "Contact"
+// ---------------------------------------------------------------------
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a[href^="tel:"], a[href*="wa.me/"]');
+  if (a && window.fbq) fbq('track', 'Contact', { method: a.href.indexOf('tel:') === 0 ? 'phone' : 'whatsapp' });
+});
