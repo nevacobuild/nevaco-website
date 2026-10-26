@@ -446,6 +446,31 @@
     }).then(function (res) { return res.ok; }).catch(function () { return false; });
   }
 
+  // ---------------------------------------------------------------------
+  // NEVACO Job Map: every website lead also appears in the team app
+  // (app.nevacobuild.ca). Uses the Supabase PUBLISHABLE key, which is meant
+  // for browsers. The database only lets this key call submit_lead(), which
+  // can add a new lead and nothing else: it cannot read any customer data.
+  // ---------------------------------------------------------------------
+  var NEVACO_APP_URL = 'https://pnomirvkekhurtuigxol.supabase.co';
+  var NEVACO_APP_KEY = 'sb_publishable_hZvLBt3e7q6Ycvm1k6yEBA_YMfivV53';
+
+  function submitLeadToApp(form) {
+    var v = {};
+    form.querySelectorAll('[data-hs-field]').forEach(function (el) {
+      v[el.getAttribute('data-hs-field')] = el.value || '';
+    });
+    return fetch(NEVACO_APP_URL + '/rest/v1/rpc/submit_lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': NEVACO_APP_KEY },
+      body: JSON.stringify({
+        p_name: v.full_name || '', p_phone: v.phone || '', p_email: v.email || '',
+        p_project_type: v.project_type || '', p_address: v.address || '',
+        p_message: v.message || '', p_visit_date: v.preferred_site_visit_date || ''
+      })
+    }).then(function (res) { return res.ok; }).catch(function () { return false; });
+  }
+
   document.querySelectorAll('form.lead-form').forEach(function (form) {
     var statusEl = form.querySelector('[data-form-status]');
     form.addEventListener('submit', function (e) {
@@ -461,7 +486,8 @@
       }
 
       if (submitBtn) submitBtn.disabled = true;
-      submitLeadToHubSpot(form).then(function (ok) {
+      Promise.all([submitLeadToHubSpot(form), submitLeadToApp(form)]).then(function (results) {
+        var ok = results[0] || results[1];
         if (submitBtn) submitBtn.disabled = false;
         if (!statusEl) return;
         statusEl.hidden = false;
