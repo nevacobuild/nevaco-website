@@ -210,7 +210,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 0;
+    padding-top: 16px;
+    padding-bottom: 16px;   /* keep the page's side gutters from .wrap */
     gap: 24px;
   }
   .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
@@ -232,14 +233,27 @@
   nav.primary a[aria-current="page"] { color: var(--maple); border-color: var(--maple); }
   .nav-cta { display: flex; align-items: center; gap: 16px; }
   .nav-toggle { display: none; }
-  @media (max-width: 900px) {
+  /* the menu folds into the button below 1100px; seven links plus two buttons do not fit a small laptop or tablet */
+  @media (max-width: 1100px) {
     nav.primary { display: none; }
     .nav-toggle {
       display: inline-flex; background: none; border: 1px solid var(--ink);
       width: 40px; height: 40px; align-items: center; justify-content: center;
       cursor: pointer; border-radius: 2px;
     }
+  }
+  .nav-cta .btn { white-space: nowrap; }
+  @media (max-width: 900px) {
     .nav-cta .btn-outline { display: none; }
+  }
+  /* phone header: one short button, so the bar is not taller than it needs to be */
+  .cta-short { display: none; }
+  @media (max-width: 640px) {
+    .nav-row { padding-top: 10px; padding-bottom: 10px; gap: 12px; }
+    .nav-cta { gap: 10px; }
+    .nav-cta .btn-primary { padding: 11px 16px; font-size: 12px; white-space: nowrap; }
+    .nav-cta .cta-long { display: none; }
+    .nav-cta .cta-short { display: inline; }
   }
   nav.primary.mobile-open {
     display: flex;
@@ -428,6 +442,10 @@
     .hero-photo { min-height: 64vh; align-items: flex-end; }
     .hero-photo .hero-media img { object-position: center 34%; }
     .hero-photo-content { padding: 40px 0 44px; }
+    /* darker band behind the text so it reads on the bright windows */
+    .hero-photo .hero-scrim { background: linear-gradient(180deg, rgba(10,10,11,0.18) 0%, rgba(10,10,11,0.62) 38%, rgba(10,10,11,0.9) 100%); }
+    .hero-photo-content p.sub { color: #fff; text-shadow: 0 1px 10px rgba(0,0,0,0.55); }
+    .hero-photo-content h1 { text-shadow: 0 2px 14px rgba(0,0,0,0.45); }
   }
 
   /* ---------- About / pillars / stats ---------- */
